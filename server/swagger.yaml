@@ -1,0 +1,92 @@
+openapi: 3.0.0
+info:
+  title: Vijay API
+  description: Optional multiline or single-line description in [CommonMark](http://commonmark.org/help/) or HTML.
+  version: 0.1.9
+
+# servers:
+#   - url: http://localhost:3300/api
+#     description: localhost - local server
+#   - url: http://localhost:4300/api
+#     description: localhost - Docker server
+
+servers:
+  - url: "{protocols}://localhost:3300/api/{version}"
+    description: localhost - local server
+    variables:
+      version:
+        enum:
+          - v1
+          - v2
+        default: v1
+      protocols:
+        enum:
+          - http
+          - https
+        default: http
+  
+components:
+  securitySchemes:
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: token
+    basicAuth:     
+      type: http
+      scheme: basic
+    bearerAuth:           
+      type: http
+      scheme: bearer
+
+paths:
+  /lco:
+    get:
+      tags: 
+        - Courses
+      summary: return courses details
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items: 
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                    name:
+                      type: string
+                    description:
+                      type: string
+        400:
+          description: Bad Request
+        500:
+          description: Internal Server Error
+
+  /upload_files:
+    post:
+      tags: 
+      - Import 
+      summary: Upload an avatar
+      requestBody:
+        description: A JSON object containing pet information
+        content:
+           application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                name:          # <!--- form field name
+                  type: string
+                phone:    # <!--- form field name
+                  type: string
+                address:
+                  type: string
+                email:
+                  type: string
+                required:
+                - name
+                - email
+     
+                  
