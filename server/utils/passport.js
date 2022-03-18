@@ -13,8 +13,8 @@ passport.deserializeUser(function(id, done) {
 });
 
 passport.use(new GoogleStrategy({
-    clientID: '547408186288-8gqebuii0s82k0d0mkfvqn9jdt4aj3mv.apps.googleusercontent.com',
-    clientSecret: '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',
+    clientID: 'XXXXX',
+    clientSecret: 'YYYYY',
     callbackURL: "http://localhost:3300/api/v1/auth/google/callback"
   },
   (accessToken, refreshToken, profile, next) => {
